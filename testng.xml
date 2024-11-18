@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parallel Execution Suite" parallel="methods" thread-count="5">
+    <test name="MyTestGroup">
+        <classes>
+            <class name="TestNG"/>
+            <class name="TutorialRestAssured"/>
+        </classes>
+    </test>
+</suite>
