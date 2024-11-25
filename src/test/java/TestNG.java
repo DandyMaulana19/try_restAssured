@@ -1,7 +1,22 @@
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class TestNG {
+
+    @BeforeClass
+    public void setUp() {
+        System.out.println("ini adalah setup");
+    }
+
+    @BeforeMethod
+    public void setUpMethod() {
+        System.out.println("ini adalah setup method");
+    }
+
     @Test
     public void Test1() {
         System.out.println("Ini Adalah Test 1");
@@ -20,5 +35,17 @@ public class TestNG {
     public void Test3() {
         System.out.println("Thread 3" + Thread.currentThread().getId());
         System.out.println("Ini Adalah Test 3");
+    }
+
+    // @AfterClass
+    // public void AfterClass() {
+    // System.out.println("ini adalah after class");
+
+    // }
+
+    @AfterMethod
+    public void afterMethod() {
+        System.out.println("ini adalah after method");
+
     }
 }
