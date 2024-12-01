@@ -7,8 +7,6 @@ import org.testng.annotations.Test;
 
 import example.StaticProvider;
 import io.restassured.RestAssured;
-import io.restassured.internal.path.json.mapping.JsonObjectDeserializer;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -28,23 +26,13 @@ public class ApiTestE2E {
     public void GetAllObjects() {
         Response response = requestSpecification.get();
 
-        System.out.println("Status Code : " + response.getStatusCode());
-        System.out.println("Responnya adalah : " + response.asPrettyString());
+        System.out.println("Status code : " + response.getStatusCode());
+        System.out.println("Fetch result : " + response.asPrettyString());
 
     }
 
-    @Test(dataProvider = "addObject", dataProviderClass = StaticProvider.class)
+    @Test(dataProvider = "AddObject", dataProviderClass = StaticProvider.class)
     public void AddObject(String name, int year, int price, String cpuModel, String hardDiskSize) {
-        // String json = "{\n" + //
-        // " \"name\": \"Apple MacBook Pro 16\",\n" + //
-        // " \"data\": {\n" + //
-        // " \"year\": 2019,\n" + //
-        // " \"price\": 20000,\n" + //
-        // " \"CPU model\": \"Intel Core i9\",\n" + //
-        // " \"Hard disk size\": \"1 TB\"\n" + //
-        // " }\n" + //
-        // "}";
-
         JSONObject jsonObject = new JSONObject();
         JSONObject jsonData = new JSONObject();
 
@@ -60,8 +48,8 @@ public class ApiTestE2E {
                 .body(jsonObject.toString())
                 .contentType("Application/json")
                 .post();
-        System.out.println("Status codenya adalah : " + response.getStatusCode());
-        System.out.println("Responnya adalah : " + response.asPrettyString());
+        System.out.println("Status code : " + response.getStatusCode());
+        System.out.println("Add Result : " + response.asPrettyString());
 
         JSONObject jsonResponse = new JSONObject(response.asString());
 
@@ -71,92 +59,45 @@ public class ApiTestE2E {
         Assert.assertEquals(jsonResponse.getJSONObject("data").getInt("price"), price);
         Assert.assertEquals(jsonResponse.getJSONObject("data").getString("Hard disk size"), hardDiskSize);
 
+        idObject = jsonResponse.getString("id");
+
     }
 
-    // public void main(String[] args) {
-    // GetAllObjects();
-    // GetObjectById();
-    // AddObject();
-    // UpdateObject();
-    // DeleteObject();
-    // }
-
-    public void GetObjectById() {
-        RestAssured.baseURI = "https://api.restful-api.dev/objects/3";
-        RequestSpecification requestSpecification = RestAssured.given();
-
-        // Response response = requestSpecification.get("/objects/1");
-        Response response = requestSpecification
-                .queryParam("id", 3)
-                .queryParam("id", 10)
-                .queryParam("id", 4)
-                .get();
-
-        System.out.println("Status Code : " + response.getStatusCode());
-        System.out.println("Responnya adalah : " + response.asPrettyString());
-
-        // convert to json format
-        JsonPath JsonPath = response.jsonPath();
-
-        System.out.println("Id:" + JsonPath.getString("id"));
-        System.out.println("Name: " + JsonPath.getString("name"));
-        System.out.println("Data: " + JsonPath.getString("data"));
-    }
-
-    // Deserialize
-
-    /*
-     * Class object{
-     * int id;
-     * String name;
-     * Data data;
-     * 
-     * 
-     * Object object = new Object();
-     * id = object.id;
-     * name = object.name;
-     * data = object.data;
-     * color = object.data.color;
-     * capacity = object.data.capacity
-     * 
-     * {
-     * "id": 1,
-     * "name": "Object 1",
-     * "data": {
-     * "color": "value1",
-     * "capacity": "value2"
-     * }
-     * }
-     * }
-     */
-
-    // update 1 data
-    public void UpdateObject() {
+    @Test(dataProvider = "UpdateObject", dataProviderClass = StaticProvider.class, dependsOnMethods = {
+            "AddObject" }, priority = 1)
+    public void UpdateObject(String name, int year, int price, String cpuModel, String hardDiskSize) {
         RestAssured.baseURI = "https://api.restful-api.dev/objects/" + idObject;
         RequestSpecification requestSpecification = RestAssured.given();
 
-        String json = "{\n" + //
-                "   \"name\": \"Apple MacBook Pro 20\",\n" + //
-                "   \"data\": {\n" + //
-                "      \"year\": 2019,\n" + //
-                "      \"price\": 20000,\n" + //
-                "      \"CPU model\": \"Intel Core i9\",\n" + //
-                "      \"Hard disk size\": \"1 TB\"\n" + //
-                "   }\n" + //
-                "}";
+        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonData = new JSONObject();
+
+        jsonObject.put("name", name);
+        jsonData.put("year", year);
+        jsonData.put("price", price);
+        jsonData.put("CPU model", cpuModel);
+        jsonData.put("Hard disk size", hardDiskSize);
+
+        jsonObject.put("data", jsonData);
 
         Response response = requestSpecification
-                .body(json)
+                .body(jsonObject.toString())
                 .contentType("Application/json")
                 .put();
-        System.out.println("Status codenya adalah : " + response.getStatusCode());
-        System.out.println("Responnya adalah : " + response.asPrettyString());
+        System.out.println("Status code : " + response.getStatusCode());
+        System.out.println("Update Result : " + response.asPrettyString());
+
+        JSONObject jsonResponse = new JSONObject(response.asString());
+
+        Assert.assertNotNull(jsonObject, "id");
+        Assert.assertEquals(jsonResponse.getJSONObject("data").getInt("year"), year);
+        Assert.assertEquals(jsonResponse.getJSONObject("data").getInt("price"), price);
+        Assert.assertEquals(jsonResponse.getJSONObject("data").getString("CPU model"), cpuModel);
+        Assert.assertEquals(jsonResponse.getJSONObject("data").getString("Hard disk size"), hardDiskSize);
     }
 
+    @Test(dependsOnMethods = { "AddObject" }, priority = 2)
     public void DeleteObject() {
-        RestAssured.baseURI = "https://api.restful-api.dev/objects/";
-        RequestSpecification requestSpecification = RestAssured.given();
-
         Response response = requestSpecification
                 .pathParam("id", idObject)
                 .contentType("Application/json")
@@ -164,6 +105,27 @@ public class ApiTestE2E {
 
         System.out.println("Status code : " + response.statusCode());
         System.out.println("Response : " + response.asPrettyString());
+
+        JSONObject jsonResponse = new JSONObject(response.asString());
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals("Object with id = " + idObject + " has been deleted.", jsonResponse.getString("message"));
+    }
+
+    @Test(dependsOnMethods = { "DeleteObject" }, priority = 3)
+    public void GetObjectById() {
+        Response response = requestSpecification
+                .pathParam("id", idObject)
+                .get("{id}");
+
+        System.out.println("Status Code : " + response.getStatusCode());
+        System.out.println("Responnya adalah : " + response.asPrettyString());
+
+        JSONObject jsonResponse = new JSONObject(response.asString());
+
+        Assert.assertEquals(response.getStatusCode(), 404);
+        Assert.assertEquals("Oject with id=" + idObject + " was not found.", jsonResponse.getString("error"));
+
     }
 
 }
