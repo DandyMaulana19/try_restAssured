@@ -4,7 +4,7 @@
         <classes>
             <!-- <class name="TestNG"/> -->
             <!-- <class name="RestAssuredTest"/> -->
-            <!-- <class name="scenario.RestAssuredTest"/> -->
+            <class name="scenario.ApiTestE2E"/>
             <!-- <class name="TutorialRestAssured"/> -->
         </classes>
     </test>

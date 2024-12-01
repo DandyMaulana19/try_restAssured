@@ -7,16 +7,6 @@ import org.testng.annotations.Test;
 
 public class TestNG {
 
-    @BeforeClass
-    public void setUp() {
-        System.out.println("ini adalah setup");
-    }
-
-    @BeforeMethod
-    public void setUpMethod() {
-        System.out.println("ini adalah setup method");
-    }
-
     @Test
     public void Test1() {
         System.out.println("Ini Adalah Test 1");
@@ -37,11 +27,20 @@ public class TestNG {
         System.out.println("Ini Adalah Test 3");
     }
 
-    // @AfterClass
-    // public void AfterClass() {
-    // System.out.println("ini adalah after class");
+    @BeforeClass
+    public void setUp() {
+        System.out.println("ini dijalankan sekali setiap setup class");
+    }
 
-    // }
+    @BeforeMethod
+    public void setUpMethod() {
+        System.out.println("ini dijalankan setiap scenario dipanggil");
+    }
+
+    @AfterClass
+    public void AfterClass() {
+        System.out.println("ini dijalankan setelah semua scenario dijalankan pada level class");
+    }
 
     @AfterMethod
     public void afterMethod() {
