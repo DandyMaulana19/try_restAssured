@@ -9,6 +9,9 @@ formatter.scenario({
   "description": "",
   "keyword": "Scenario"
 });
+formatter.before({
+  "status": "passed"
+});
 formatter.step({
   "name": "A list of item are available",
   "keyword": "Given "
@@ -17,8 +20,7 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.a_list_of_item_are_available()"
 });
 formatter.result({
-  "error_message": "io.cucumber.java.PendingException: TODO: implement me\r\n\tat stepdefinitions.StepDefinitions.a_list_of_item_are_available(StepDefinitions.java:11)\r\n\tat ✽.A list of item are available(file:///D:/My%20Project/QA%20mini%20class/restassuredtest/src/test/resources/features/End2End_Test.feature:5)\r\n",
-  "status": "pending"
+  "status": "passed"
 });
 formatter.step({
   "name": "I add item to list",
@@ -28,7 +30,7 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.i_add_item_to_list()"
 });
 formatter.result({
-  "status": "skipped"
+  "status": "passed"
 });
 formatter.step({
   "name": "The item is available",
@@ -38,12 +40,15 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.the_item_is_available()"
 });
 formatter.result({
-  "status": "skipped"
+  "status": "passed"
 });
 formatter.scenario({
   "name": "As a user I can update data",
   "description": "",
   "keyword": "Scenario"
+});
+formatter.before({
+  "status": "passed"
 });
 formatter.step({
   "name": "A list of item are available",
@@ -53,8 +58,7 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.a_list_of_item_are_available()"
 });
 formatter.result({
-  "error_message": "io.cucumber.java.PendingException: TODO: implement me\r\n\tat stepdefinitions.StepDefinitions.a_list_of_item_are_available(StepDefinitions.java:11)\r\n\tat ✽.A list of item are available(file:///D:/My%20Project/QA%20mini%20class/restassuredtest/src/test/resources/features/End2End_Test.feature:10)\r\n",
-  "status": "pending"
+  "status": "passed"
 });
 formatter.step({
   "name": "I add item to list",
@@ -64,7 +68,7 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.i_add_item_to_list()"
 });
 formatter.result({
-  "status": "skipped"
+  "status": "passed"
 });
 formatter.step({
   "name": "The item is available",
@@ -74,7 +78,7 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.the_item_is_available()"
 });
 formatter.result({
-  "status": "skipped"
+  "status": "passed"
 });
 formatter.step({
   "name": "I can update that item",
@@ -84,12 +88,15 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.i_can_update_that_item()"
 });
 formatter.result({
-  "status": "skipped"
+  "status": "passed"
 });
 formatter.scenario({
   "name": "As a user I can detele data",
   "description": "",
   "keyword": "Scenario"
+});
+formatter.before({
+  "status": "passed"
 });
 formatter.step({
   "name": "A list of item are available",
@@ -99,8 +106,7 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.a_list_of_item_are_available()"
 });
 formatter.result({
-  "error_message": "io.cucumber.java.PendingException: TODO: implement me\r\n\tat stepdefinitions.StepDefinitions.a_list_of_item_are_available(StepDefinitions.java:11)\r\n\tat ✽.A list of item are available(file:///D:/My%20Project/QA%20mini%20class/restassuredtest/src/test/resources/features/End2End_Test.feature:16)\r\n",
-  "status": "pending"
+  "status": "passed"
 });
 formatter.step({
   "name": "I add item to list",
@@ -110,7 +116,7 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.i_add_item_to_list()"
 });
 formatter.result({
-  "status": "skipped"
+  "status": "passed"
 });
 formatter.step({
   "name": "The item is available",
@@ -120,22 +126,26 @@ formatter.match({
   "location": "stepdefinitions.StepDefinitions.the_item_is_available()"
 });
 formatter.result({
-  "status": "skipped"
+  "status": "passed"
 });
 formatter.step({
   "name": "I delete that item",
   "keyword": "When "
 });
-formatter.match({});
+formatter.match({
+  "location": "stepdefinitions.StepDefinitions.i_delete_that_item()"
+});
 formatter.result({
-  "status": "undefined"
+  "status": "passed"
 });
 formatter.step({
   "name": "The item is not available",
   "keyword": "Then "
 });
-formatter.match({});
+formatter.match({
+  "location": "stepdefinitions.StepDefinitions.the_item_is_not_available()"
+});
 formatter.result({
-  "status": "undefined"
+  "status": "passed"
 });
 });

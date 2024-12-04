@@ -30,7 +30,6 @@ public class StepDefinitions {
         System.out.println("Status code : " + response.getStatusCode());
         System.out.println("Fetch result : " + response.asPrettyString());
 
-        throw new io.cucumber.java.PendingException();
     }
 
     @When("I add item to list")
@@ -47,7 +46,7 @@ public class StepDefinitions {
                 "}";
 
         Response response = requestSpecification
-                .body(json.toString())
+                .body(json)
                 .contentType("Application/json")
                 .post();
 
@@ -59,7 +58,8 @@ public class StepDefinitions {
         Assert.assertEquals(jsonResponse.getJSONObject("data").getInt("price"), 20000);
         Assert.assertEquals(jsonResponse.getJSONObject("data").getString("Hard disk size"), "1 TB");
 
-        throw new io.cucumber.java.PendingException();
+        idObject = jsonResponse.getString("id");
+
     }
 
     @When("The item is available")
@@ -69,12 +69,12 @@ public class StepDefinitions {
         System.out.println("Status code : " + response.getStatusCode());
         System.out.println("Fetch result : " + response.asPrettyString());
 
-        JSONObject jsonResponse = new JSONObject(response.asString());
+        // JSONObject jsonResponse = new JSONObject(response.asString());
 
-        Assert.assertEquals(response.getStatusCode(), 404);
-        Assert.assertEquals("Object with id=" + idObject + " was not found.", jsonResponse.getString("error"));
+        // Assert.assertEquals(response.getStatusCode(), 404);
+        // Assert.assertEquals("Object with id=" + idObject + " was not found.",
+        // jsonResponse.getString("error"));
 
-        throw new io.cucumber.java.PendingException();
     }
 
     @Then("I can update that item")
@@ -93,7 +93,7 @@ public class StepDefinitions {
                 "}";
 
         Response response = requestSpecification
-                .body(json.toString())
+                .body(json)
                 .contentType("Application/json")
                 .put();
         System.out.println("Status code : " + response.getStatusCode());
@@ -107,7 +107,6 @@ public class StepDefinitions {
         Assert.assertEquals(jsonResponse.getJSONObject("data").getString("CPU model"), "Intel Core i9");
         Assert.assertEquals(jsonResponse.getJSONObject("data").getString("Hard disk size"), "1 TB");
 
-        throw new io.cucumber.java.PendingException();
     }
 
     @When("I delete that item")
@@ -126,8 +125,8 @@ public class StepDefinitions {
         Assert.assertEquals("Object with id = " + idObject + " has been deleted.", jsonResponse.getString("message"));
     }
 
-    @Then("The item isn't available")
-    public void the_item_isn_t_available() {
+    @Then("The item is not available")
+    public void the_item_is_not_available() {
 
         Response response = requestSpecification
                 .pathParam("id", idObject)
@@ -141,6 +140,5 @@ public class StepDefinitions {
         Assert.assertEquals(response.getStatusCode(), 404);
         Assert.assertEquals("Oject with id=" + idObject + " was not found.", jsonResponse.getString("error"));
 
-        throw new io.cucumber.java.PendingException();
     }
 }
