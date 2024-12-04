@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="3" tests="3" time="5.087">
+    <testcase classname="End to End simulation Test" name="As a user I can add new data" time="1.495">
+        <skipped><![CDATA[Given A list of item are available..........................................pending
+When I add item to list.....................................................skipped
+Then The item is available..................................................skipped
+]]></skipped>
+    </testcase>
+    <testcase classname="End to End simulation Test" name="As a user I can update data" time="0.416">
+        <skipped><![CDATA[Given A list of item are available..........................................pending
+When I add item to list.....................................................skipped
+And The item is available...................................................skipped
+Then I can update that item.................................................skipped
+]]></skipped>
+    </testcase>
+    <testcase classname="End to End simulation Test" name="As a user I can detele data" time="0.297">
+        <skipped><![CDATA[Given A list of item are available..........................................pending
+And I add item to list......................................................skipped
+And The item is available...................................................skipped
+When I delete that item.....................................................undefined
+Then The item is not available..............................................undefined
+]]></skipped>
+    </testcase>
+</testsuite>

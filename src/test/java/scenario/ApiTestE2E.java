@@ -29,6 +29,11 @@ public class ApiTestE2E {
         System.out.println("Status code : " + response.getStatusCode());
         System.out.println("Fetch result : " + response.asPrettyString());
 
+        JSONObject jsonResponse = new JSONObject(response.asString());
+
+        Assert.assertEquals(response.getStatusCode(), 404);
+        Assert.assertEquals("Object with id=" + idObject + " was not found.", jsonResponse.getString("error"));
+
     }
 
     @Test(dataProvider = "AddObject", dataProviderClass = StaticProvider.class)
