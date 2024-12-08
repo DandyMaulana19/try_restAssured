@@ -14,9 +14,6 @@ formatter.scenario({
     }
   ]
 });
-formatter.before({
-  "status": "passed"
-});
 formatter.step({
   "name": "A list of item are available",
   "keyword": "Given "

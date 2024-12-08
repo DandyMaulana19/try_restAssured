@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="12.32">
-    <testcase classname="End to End simulation Test" name="As a user I can add new data" time="11.819">
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="7.521">
+    <testcase classname="End to End simulation Test" name="As a user I can add new data" time="7.154">
         <system-out><![CDATA[Given A list of item are available..........................................passed
 When I add item to list.....................................................passed
 Then The item is available..................................................passed

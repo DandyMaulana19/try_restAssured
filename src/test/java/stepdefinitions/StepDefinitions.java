@@ -7,7 +7,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.cucumber.java.Before;
+import apiengine.Endpoints;
+// import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -25,15 +26,16 @@ public class StepDefinitions {
     private AddItem addItem;
     private ResponseItem responseItem;
 
-    @Before
-    public void setUp() {
-        RestAssured.baseURI = "https://api.restful-api.dev/objects";
-        requestSpecification = RestAssured.given();
-    }
+    // @Before
+    // public void setUp() {
+    // RestAssured.baseURI = "https://api.restful-api.dev/objects";
+    // requestSpecification = RestAssured.given();
+    // }
 
     @Given("A list of item are available")
     public void a_list_of_item_are_available() {
-        Response response = requestSpecification.get();
+        // Initialize response using deserialize/reusable code
+        Response response = Endpoints.getAllItems();
 
         System.out.println("Status code : " + response.getStatusCode());
         System.out.println("Fetch result : " + response.asPrettyString());
@@ -59,10 +61,14 @@ public class StepDefinitions {
         // Request using deserialize
         addItem = objectMapper.readValue(json, AddItem.class);
 
-        Response response = requestSpecification
-                .body(json)
-                .contentType("Application/json")
-                .post();
+        // Initialize response manually
+        // Response response = requestSpecification
+        // .body(json)
+        // .contentType("Application/json")
+        // .post();
+
+        // Initialize response using deserialize/reusable code
+        Response response = Endpoints.addItem(json);
 
         // Response using deserialize
         JsonPath jsonPath = response.jsonPath();
@@ -95,7 +101,11 @@ public class StepDefinitions {
 
     @When("The item is available")
     public void the_item_is_available() {
-        Response response = requestSpecification.get();
+        // Inititalize response manually
+        // Response response = requestSpecification.get();
+
+        // Initialize response using deserialize/reusable code
+        Response response = Endpoints.getItemById(idObject);
 
         System.out.println("Status code : " + response.getStatusCode());
         System.out.println("Fetch result : " + response.asPrettyString());
@@ -110,8 +120,9 @@ public class StepDefinitions {
 
     @Then("I can update that item")
     public void i_can_update_that_item() {
-        RestAssured.baseURI = "https://api.restful-api.dev/objects/" + idObject;
-        RequestSpecification requestSpecification = RestAssured.given();
+        // Initialize endpoint manually
+        // RestAssured.baseURI = "https://api.restful-api.dev/objects/" + idObject;
+        // RequestSpecification requestSpecification = RestAssured.given();
 
         String json = "{\n" + //
                 "   \"name\": \"Apple MacBook Pro 16\",\n" + //
@@ -123,10 +134,14 @@ public class StepDefinitions {
                 "   }\n" + //
                 "}";
 
-        Response response = requestSpecification
-                .body(json)
-                .contentType("Application/json")
-                .put();
+        // Initialize response manually
+        // Response response = requestSpecification
+        // .body(json)
+        // .contentType("Application/json")
+        // .put();
+
+        Response response = Endpoints.updateItem(json, idObject);
+
         System.out.println("Status code : " + response.getStatusCode());
         System.out.println("Update Result : " + response.asPrettyString());
 
@@ -142,10 +157,14 @@ public class StepDefinitions {
 
     @When("I delete that item")
     public void i_delete_that_item() {
-        Response response = requestSpecification
-                .pathParam("id", idObject)
-                .contentType("Application/json")
-                .delete("{id}");
+        // Initialize response manually
+        // Response response = requestSpecification
+        // .pathParam("id", idObject)
+        // .contentType("Application/json")
+        // .delete("{id}");
+
+        // Initialize response using deserialize/reusable code
+        Response response = Endpoints.deleteItem(idObject);
 
         System.out.println("Status code : " + response.statusCode());
         System.out.println("Response : " + response.asPrettyString());
@@ -159,9 +178,12 @@ public class StepDefinitions {
     @Then("The item is not available")
     public void the_item_is_not_available() {
 
-        Response response = requestSpecification
-                .pathParam("id", idObject)
-                .get("{id}");
+        // Initialize response manually
+        // Response response = requestSpecification
+        // .pathParam("id", idObject)
+        // .get("{id}");
+
+        Response response = Endpoints.getItemById(idObject);
 
         System.out.println("Status Code : " + response.getStatusCode());
         System.out.println("Responnya adalah : " + response.asPrettyString());
