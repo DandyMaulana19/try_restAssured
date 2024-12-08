@@ -3,11 +3,11 @@
     "line": 1,
     "elements": [
       {
-        "start_timestamp": "2024-12-04T17:13:51.968Z",
+        "start_timestamp": "2024-12-08T14:11:01.040Z",
         "before": [
           {
             "result": {
-              "duration": 4614353000,
+              "duration": 3097393500,
               "status": "passed"
             },
             "match": {
@@ -15,7 +15,7 @@
             }
           }
         ],
-        "line": 4,
+        "line": 5,
         "name": "As a user I can add new data",
         "description": "",
         "id": "end-to-end-simulation-test;as-a-user-i-can-add-new-data",
@@ -24,80 +24,22 @@
         "steps": [
           {
             "result": {
-              "duration": 9307727600,
-              "status": "passed"
-            },
-            "line": 5,
-            "name": "A list of item are available",
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.a_list_of_item_are_available()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 1019070600,
+              "duration": 6201291300,
               "status": "passed"
             },
             "line": 6,
-            "name": "I add item to list",
+            "name": "A list of item are available",
             "match": {
-              "location": "stepdefinitions.StepDefinitions.i_add_item_to_list()"
+              "location": "stepdefinitions.StepDefinitions.a_list_of_item_are_available()"
             },
-            "keyword": "When "
+            "keyword": "Given "
           },
           {
             "result": {
-              "duration": 720068400,
+              "duration": 1834262400,
               "status": "passed"
             },
             "line": 7,
-            "name": "The item is available",
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.the_item_is_available()"
-            },
-            "keyword": "Then "
-          }
-        ]
-      },
-      {
-        "start_timestamp": "2024-12-04T17:14:08.258Z",
-        "before": [
-          {
-            "result": {
-              "duration": 976200,
-              "status": "passed"
-            },
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.setUp()"
-            }
-          }
-        ],
-        "line": 9,
-        "name": "As a user I can update data",
-        "description": "",
-        "id": "end-to-end-simulation-test;as-a-user-i-can-update-data",
-        "type": "scenario",
-        "keyword": "Scenario",
-        "steps": [
-          {
-            "result": {
-              "duration": 814060300,
-              "status": "passed"
-            },
-            "line": 10,
-            "name": "A list of item are available",
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.a_list_of_item_are_available()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 563043100,
-              "status": "passed"
-            },
-            "line": 11,
             "name": "I add item to list",
             "match": {
               "location": "stepdefinitions.StepDefinitions.i_add_item_to_list()"
@@ -106,108 +48,20 @@
           },
           {
             "result": {
-              "duration": 516041200,
+              "duration": 514348300,
               "status": "passed"
             },
-            "line": 12,
+            "line": 8,
             "name": "The item is available",
             "match": {
               "location": "stepdefinitions.StepDefinitions.the_item_is_available()"
             },
-            "keyword": "And "
-          },
-          {
-            "result": {
-              "duration": 601051400,
-              "status": "passed"
-            },
-            "line": 13,
-            "name": "I can update that item",
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.i_can_update_that_item()"
-            },
             "keyword": "Then "
-          }
-        ]
-      },
-      {
-        "start_timestamp": "2024-12-04T17:14:10.776Z",
-        "before": [
-          {
-            "result": {
-              "status": "passed"
-            },
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.setUp()"
-            }
           }
         ],
-        "line": 15,
-        "name": "As a user I can detele data",
-        "description": "",
-        "id": "end-to-end-simulation-test;as-a-user-i-can-detele-data",
-        "type": "scenario",
-        "keyword": "Scenario",
-        "steps": [
+        "tags": [
           {
-            "result": {
-              "duration": 505074700,
-              "status": "passed"
-            },
-            "line": 16,
-            "name": "A list of item are available",
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.a_list_of_item_are_available()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 521014200,
-              "status": "passed"
-            },
-            "line": 17,
-            "name": "I add item to list",
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.i_add_item_to_list()"
-            },
-            "keyword": "And "
-          },
-          {
-            "result": {
-              "duration": 526037500,
-              "status": "passed"
-            },
-            "line": 18,
-            "name": "The item is available",
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.the_item_is_available()"
-            },
-            "keyword": "And "
-          },
-          {
-            "result": {
-              "duration": 480034300,
-              "status": "passed"
-            },
-            "line": 19,
-            "name": "I delete that item",
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.i_delete_that_item()"
-            },
-            "keyword": "When "
-          },
-          {
-            "result": {
-              "duration": 1026106400,
-              "status": "passed"
-            },
-            "line": 20,
-            "name": "The item is not available",
-            "match": {
-              "location": "stepdefinitions.StepDefinitions.the_item_is_not_available()"
-            },
-            "keyword": "Then "
+            "name": "@addData"
           }
         ]
       }

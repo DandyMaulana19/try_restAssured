@@ -3,19 +3,27 @@ package stepdefinitions;
 import org.json.JSONObject;
 import org.testng.Assert;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import model.request.AddItem;
+import model.response.ResponseItem;
 
 public class StepDefinitions {
 
     RequestSpecification requestSpecification;
-
     String idObject;
+    private AddItem addItem;
+    private ResponseItem responseItem;
 
     @Before
     public void setUp() {
@@ -33,7 +41,7 @@ public class StepDefinitions {
     }
 
     @When("I add item to list")
-    public void i_add_item_to_list() {
+    public void i_add_item_to_list() throws JsonMappingException, JsonProcessingException {
 
         String json = "{\n" + //
                 "   \"name\": \"Apple MacBook Pro 16\",\n" + //
@@ -45,20 +53,43 @@ public class StepDefinitions {
                 "   }\n" + //
                 "}";
 
+        // Using deserialize
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Request using deserialize
+        addItem = objectMapper.readValue(json, AddItem.class);
+
         Response response = requestSpecification
                 .body(json)
                 .contentType("Application/json")
                 .post();
 
-        JSONObject jsonResponse = new JSONObject(response.asString());
+        // Response using deserialize
+        JsonPath jsonPath = response.jsonPath();
+        responseItem = jsonPath.getObject("", ResponseItem.class);
 
-        Assert.assertNotNull(jsonResponse.getString("id"));
-        Assert.assertEquals(jsonResponse.getJSONObject("data").getInt("year"), 2019);
-        Assert.assertEquals(jsonResponse.getJSONObject("data").getString("CPU model"), "Intel Core i9");
-        Assert.assertEquals(jsonResponse.getJSONObject("data").getInt("price"), 20000);
-        Assert.assertEquals(jsonResponse.getJSONObject("data").getString("Hard disk size"), "1 TB");
+        // Assertion using deserialize
+        Assert.assertNotNull(responseItem.id);
+        Assert.assertEquals(responseItem.data.year, addItem.data.year);
+        Assert.assertEquals(responseItem.data.cpuModel, addItem.data.cpuModel);
+        Assert.assertEquals(responseItem.data.price, addItem.data.price);
+        Assert.assertEquals(responseItem.data.hardDiskSize, addItem.data.hardDiskSize);
 
-        idObject = jsonResponse.getString("id");
+        idObject = responseItem.id;
+
+        // Without deserialize / Manual
+        // Its become redundant
+        // JSONObject jsonResponse = new JSONObject(response.asString());
+        // Assert.assertNotNull(jsonResponse.getString("id"));
+        // Assert.assertEquals(jsonResponse.getJSONObject("data").getInt("year"), 2019);
+        // Assert.assertEquals(jsonResponse.getJSONObject("data").getString("CPU
+        // model"), "Intel Core i9");
+        // Assert.assertEquals(jsonResponse.getJSONObject("data").getInt("price"),
+        // 20000);
+        // Assert.assertEquals(jsonResponse.getJSONObject("data").getString("Hard disk
+        // size"), "1 TB");
+
+        // idObject = jsonResponse.getString("id");
 
     }
 
