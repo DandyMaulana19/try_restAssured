@@ -1,5 +1,7 @@
 package stepdefinitions;
 
+import java.util.Map;
+
 import org.json.JSONObject;
 import org.testng.Assert;
 
@@ -18,6 +20,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.request.AddItem;
 import model.response.ResponseItem;
+import resource.DataRequest;
 
 public class StepDefinitions {
 
@@ -25,6 +28,8 @@ public class StepDefinitions {
     String idObject;
     private AddItem addItem;
     private ResponseItem responseItem;
+    private DataRequest dataRequest;
+    private String json;
 
     // @Before
     // public void setUp() {
@@ -42,18 +47,29 @@ public class StepDefinitions {
 
     }
 
-    @When("I add item to list")
-    public void i_add_item_to_list() throws JsonMappingException, JsonProcessingException {
+    @When("I add item to list {int}")
+    public void i_add_item_to_list(int payload) throws JsonMappingException, JsonProcessingException {
 
-        String json = "{\n" + //
-                "   \"name\": \"Apple MacBook Pro 16\",\n" + //
-                "   \"data\": {\n" + //
-                "      \"year\": 2019,\n" + //
-                "      \"price\": 20000,\n" + //
-                "      \"CPU model\": \"Intel Core i9\",\n" + //
-                "      \"Hard disk size\": \"1 TB\"\n" + //
-                "   }\n" + //
-                "}";
+        // Initialize payload manually
+        // String json = "{\n" + //
+        // " \"name\": \"Apple MacBook Pro 16\",\n" + //
+        // " \"data\": {\n" + //
+        // " \"year\": 2019,\n" + //
+        // " \"price\": 20000,\n" + //
+        // " \"CPU model\": \"Intel Core i9\",\n" + //
+        // " \"Hard disk size\": \"1 TB\"\n" + //
+        // " }\n" + //
+        // "}";
+
+        // Initialize payload using reusable code
+        dataRequest = new DataRequest();
+
+        for (Map.Entry<Integer, String> entry : dataRequest.addItemCollection().entrySet()) {
+            if (entry.getKey() == payload) {
+                json = entry.getValue();
+                break;
+            }
+        }
 
         // Using deserialize
         ObjectMapper objectMapper = new ObjectMapper();

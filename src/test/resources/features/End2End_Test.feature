@@ -2,10 +2,15 @@ Feature: End to End simulation Test
 Description: We will test some scenario implement E2E Test
 
 @addData
-Scenario: As a user I can add new data
+Scenario Outline: As a user I can add new data
     Given A list of item are available
-    When I add item to list
+    When I add item to list <payload>
     Then The item is available
+
+    Examples:
+    |payload|
+    |1|
+    |2|
 
 Scenario: As a user I can update data
     Given A list of item are available
